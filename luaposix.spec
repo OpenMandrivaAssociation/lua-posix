@@ -2,11 +2,12 @@
 %define soname        posix
 %define version       1.0
 %define major         1
-%define release       %mkrel 2
+%define release       %mkrel 3
 %define libname       %mklibname %{soname} %{major}
 %define libname_major %mklibname %{name} %{major}
 %define libname_orig  %mklibname %{name}
-%define lua_version   5.0
+%define develname     %mklibname %{name} -d
+%define lua_version   5.1
 
 Summary:        A POSIX library for the Lua programming language
 Name:           %name
@@ -16,7 +17,8 @@ License:        Public Domain
 Group:          Development/Other
 URL:            http://www.tecgraf.puc-rio.br/~lhf/ftp/lua/
 Source0:        lposix.tar.bz2
-Patch0:         %{name}.patch.bz2
+Patch0:         %{name}.patch
+Patch1:		lposix-build-5.1.patch
 BuildRoot:      %_tmppath/%{name}-buildroot
 Obsoletes:      %{libname} = %{version}
 Obsoletes:      %{libname_orig}
@@ -31,21 +33,20 @@ Summary:        A POSIX library for the Lua programming language
 Group:          Development/Other
 Obsoletes:      %{libname_orig}
 Provides:       %{libname_orig}
-Requires:       liblua5
+Requires:       liblua%{lua_version}
 BuildRequires:  liblua-devel
 
 %description -n %{libname_major}
 A POSIX library for the Lua programming language.
 
-%package -n     %{libname_major}-devel
+%package -n     %{develname}
 Summary:        Static library and header files for the luaposix library
 Group:          Development/Other
 License:        Public Domain
-Obsoletes:      %{libname_orig}-devel
-Provides:       %{libname_orig}-devel
 Requires:       %{libname_major} = %{version}
+Obsoletes:	%{libname_major}-devel
 
-%description -n %{libname_major}-devel
+%description -n %{develname}
 A POSIX library for the Lua programming language.
 
 This package contains the static libluaposix library and its header files
@@ -53,7 +54,8 @@ needed to compile applications that use luaposix.
 
 %prep
 %setup -q -n %{soname}
-%patch -p1
+%patch0 -p1
+%patch1 -p0
 
 %build
 export CFLAGS="%{optflags} -fPIC"
@@ -85,7 +87,7 @@ fi
 %{_libdir}/lua/%{lua_version}/*.so
 %{_defaultdocdir}/lua/%{lua_version}/*
 
-%files -n %{libname_major}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %{_libdir}/lua/%{lua_version}/*.so
 %{_libdir}/lua/%{lua_version}/*.a
