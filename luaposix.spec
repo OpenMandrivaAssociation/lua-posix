@@ -19,6 +19,7 @@ URL:            http://www.tecgraf.puc-rio.br/~lhf/ftp/lua/
 Source0:        lposix.tar.bz2
 Patch0:         %{name}.patch
 Patch1:		lposix-build-5.1.patch
+BuildRoot:      %_tmppath/%{name}-buildroot
 Obsoletes:      %{libname} = %{version}
 Obsoletes:      %{libname_orig}
 Provides:       %{libname} = %{version}
