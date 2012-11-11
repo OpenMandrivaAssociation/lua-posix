@@ -1,0 +1,42 @@
+diff -ruN posix.old/Makefile posix/Makefile
+--- posix.old/Makefile	2003-11-05 22:26:49.000000000 -0200
++++ posix/Makefile	2004-03-22 14:19:03.000000000 -0300
+@@ -1,7 +1,7 @@
+ # makefile for POSIX library for Lua
+ 
+ # change these to reflect your Lua installation
+-LUA= /tmp/lhf/lua-5.0
++LUA= /usr
+ LUAINC= $(LUA)/include
+ LUALIB= $(LUA)/lib
+ LUABIN= $(LUA)/bin
+@@ -18,13 +18,18 @@
+ 
+ T= $(MYLIB).so
+ 
+-all:	test
++all:	$T static
+ 
+ test:	$T
+ 	$(LUABIN)/lua -l$(MYNAME) test.lua
+ 
+ $T:	$(OBJS)
+-	$(CC) -o $@ -shared $(OBJS)
++	$(CC) -o posix.so -shared $(OBJS)
++
++static: $(OBJS)
++	rm -f posix.a
++	ar cr posix.a $(OBJS)
++	ranlib posix.a
+ 
+ $(OBJS): modemuncher.c
+ 
+@@ -32,7 +37,7 @@
+ 	$(LUABIN)/lua -l$(MYNAME) tree.lua .
+ 
+ clean:
+-	rm -f $(OBJS) $T core core.* a.out
++	rm -f $(OBJS) $T core core.* a.out *.so
+ 
+ x:
+ 	@echo "$(MYNAME) library:"
