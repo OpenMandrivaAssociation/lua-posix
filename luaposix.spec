@@ -17,8 +17,6 @@ License:        Public Domain
 Group:          Development/Other
 URL:            http://www.tecgraf.puc-rio.br/~lhf/ftp/lua/
 Source0:        https://github.com/downloads/luaposix/luaposix/%{name}-%{version}.tar.gz
-Patch0:         %{name}.patch
-Patch1:		lposix-build-5.1.patch
 Obsoletes:      %{libname} = %{version}
 Obsoletes:      %{libname_orig}
 Provides:       %{libname} = %{version}
@@ -53,8 +51,6 @@ needed to compile applications that use luaposix.
 
 %prep
 %setup -q
-#%patch0 -p1
-#%patch1 -p0
 
 %build
 export CFLAGS="%{optflags} -fPIC"
