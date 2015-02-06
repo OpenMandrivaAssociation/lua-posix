@@ -2,7 +2,7 @@
 %define soname        posix
 %define version       5.1.23
 %define major         1
-%define release       %mkrel 1
+%define release       2
 %define libname       %mklibname %{soname} %{major}
 %define libname_major %mklibname %{name} %{major}
 %define libname_orig  %mklibname %{name}
