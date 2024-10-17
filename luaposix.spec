@@ -15,7 +15,7 @@ Version:        %version
 Release:        %release
 License:        Public Domain
 Group:          Development/Other
-URL:            http://www.tecgraf.puc-rio.br/~lhf/ftp/lua/
+URL:            https://www.tecgraf.puc-rio.br/~lhf/ftp/lua/
 Source0:        https://github.com/downloads/luaposix/luaposix/%{name}-%{version}.tar.gz
 Obsoletes:      %{libname} = %{version}
 Obsoletes:      %{libname_orig}
